@@ -11,10 +11,7 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    email: "yash@miraroad.com",
-    password: "miraroad",
-  });
+  const [user, setUser] = useState();
 
   const value = {
     user,

@@ -13,15 +13,14 @@ export const useApplicationManager = () => {
 };
 
 export const ApplicationManagerProvider = ({ children }) => {
+  const [adminLogin, setAdminLogin] = useState(true);
+  const [selectedMenubarItemId, setSelectedMenubarItemId] = useState(0);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 850);
+  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [fullScreenPopCenter, setFullScreenPopCenter] = useState({
     isActive: false,
     Component: null,
   });
-
-  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
-
-  const [selectedMenubarItemId, setSelectedMenubarItemId] = useState(0);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 850);
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,6 +45,9 @@ export const ApplicationManagerProvider = ({ children }) => {
   };
 
   const value = {
+    adminLogin,
+    setAdminLogin,
+
     fullScreenPopCenter,
     setFullScreenPopCenter,
 

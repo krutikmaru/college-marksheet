@@ -14,7 +14,9 @@ export const useApplicationManager = () => {
 
 export const ApplicationManagerProvider = ({ children }) => {
   const [adminLogin, setAdminLogin] = useState(true);
-  const [selectedMenubarItemId, setSelectedMenubarItemId] = useState(0);
+  const [selectedMenubarItemId, setSelectedMenubarItemId] = useState(
+    "5225da39369d45d7bc3c05fd03f61b69"
+  );
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 850);
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [fullScreenPopCenter, setFullScreenPopCenter] = useState({

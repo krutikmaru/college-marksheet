@@ -23,13 +23,13 @@
 /* Handle */
 ::-webkit-scrollbar-thumb,
 .menubar-scrollbar::-webkit-scrollbar-thumbr {
-  @apply bg-black-search-bar;
+  @apply bg-[#3a3fdb];
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover,
 .menubar-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-[#1e1e1e];
+  @apply bg-[#4449e7];
 }
 
 body {

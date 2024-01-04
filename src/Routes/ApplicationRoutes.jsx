@@ -7,6 +7,7 @@ import Layout from "../Components/Layout/Layout";
 import { Toaster } from "react-hot-toast";
 import { useUser } from "../contexts/UserContext";
 import { useApplicationManager } from "../contexts/ApplicationContext";
+import Subjects from "../pages/Admin/Subjects/Subjects";
 
 const RoutesWrapper = () => {
   const { user } = useUser();
@@ -28,11 +29,13 @@ const RoutesWrapper = () => {
           {user ? (
             <>
               <Route path="/" element={<HomeAdmin />} />
+              <Route path="/subjects" element={<Subjects />} />
               <Route path="/auth" element={<Navigate to="/" replace />} />
             </>
           ) : (
             <>
               <Route path="/auth" element={<Authentication />} />
+              <Route path="/subjects" element={<Authentication />} />
               <Route path="/" element={<Navigate to="/auth" replace />} />
             </>
           )}

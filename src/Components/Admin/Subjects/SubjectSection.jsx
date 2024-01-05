@@ -21,7 +21,6 @@ const SubjectSection = ({
     subject.abbrevation
   );
 
-  const subjectNameRef = useRef(null);
   const [teacherSelectionVisible, setTeacherSelectionVisible] = useState(false);
   return (
     <div
@@ -33,7 +32,6 @@ const SubjectSection = ({
           Subject Title
         </span>
         <input
-          ref={subjectNameRef}
           value={subjectTitle}
           onChange={(e) => {
             setSubjectTitle(e.target.value);
@@ -44,7 +42,6 @@ const SubjectSection = ({
               e.target.value,
               getAbbreviation(e.target.value)
             );
-            subjectNameRef.current.focus();
           }}
           className="w-full bg-[#131313] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
         />

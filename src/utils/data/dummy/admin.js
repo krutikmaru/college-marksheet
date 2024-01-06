@@ -1,14 +1,18 @@
 export const adminData = {
   admins: [
     {
-      UID: "WR",
-      name: "Western Railway",
-      email: "railwaywestern@jaihindcollege.edu.in",
+      UID: "BSCIT_WR",
+      name: "Wilson Rao",
+      course: "BSCIT",
+      email: "wilsonrao@jaihindcollege.edu.in",
+      isAdmin: true,
     },
     {
-      UID: "RS",
+      UID: "BMS_RS",
       name: "Rakhi Sharma",
+      course: "BMS",
       email: "sharmaji@jaihindcollege.edu.in",
+      isAdmin: true,
     },
   ],
 };

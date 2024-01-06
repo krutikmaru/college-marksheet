@@ -21,7 +21,7 @@ const Teachers = () => {
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [teacherName, setTeacherName] = useState("");
   const [teacherEmail, setTeacherEmail] = useState("");
-  const { course, teachers, setTeachers } = useDataStore();
+  const { course, teachers, setTeachers, admins, setAdmins } = useDataStore();
 
   const {
     setSelectedMenubarItemId,
@@ -65,6 +65,41 @@ const Teachers = () => {
     setTeachers(copy);
     toast.error("Teacher Deleted Succefully");
   };
+
+  const handleAddAdmin = (UID) => {
+    let copy = JSON.parse(JSON.stringify(teachers));
+    let newAdmin;
+    copy[selectedCourse].teachers.map((teacher) => {
+      if (teacher.UID === UID) {
+        teacher["isAdmin"] = true;
+        newAdmin = teacher;
+      }
+      return teacher;
+    });
+    setTeachers(copy);
+
+    copy = JSON.parse(JSON.stringify(admins));
+    copy.admins.push(newAdmin);
+    setAdmins(copy);
+    toast.success("Made Admin");
+  };
+
+  const handleRemoveAdmin = (UID) => {
+    let copy = JSON.parse(JSON.stringify(teachers));
+    copy[selectedCourse].teachers.map((teacher) => {
+      if (teacher.UID === UID) {
+        teacher["isAdmin"] = false;
+      }
+      return teacher;
+    });
+    setTeachers(copy);
+
+    copy = JSON.parse(JSON.stringify(admins));
+    copy.admins = copy.admins.filter((admin) => admin.UID !== UID);
+    setAdmins(copy);
+    toast.success("Removed   Admin");
+  };
+
   if (!selectedBatch) {
     return <SelectBatch course={course} setSelectedBatch={setSelectedBatch} />;
   }
@@ -164,33 +199,57 @@ const Teachers = () => {
           return (
             <div
               key={teacher.UID}
-              className="w-full min-h-[80px] bg-[#141414] rounded-md cursor-pointer p-4 px-7 flex justify-between items-center"
+              className="w-full min-h-[80px] bg-[#141414] rounded-md p-4 px-7 flex justify-between items-center"
             >
               <div className="flex justify-start items-center">
-                <div className="w-9 h-9 rounded-full flex justify-center items-center mr-4 bg-jhc-blue-primary cursor-pointer relative overflow-hidden">
+                <div className="w-9 h-9 rounded-full flex justify-center items-center mr-4 bg-jhc-blue-primary relative overflow-hidden">
                   {teacher.name[0].toUpperCase()}
                 </div>
                 <div className="flex flex-col justify-center items-start">
-                  <h1 className="text-lg ">{teacher.name}</h1>
+                  <div className="flex">
+                    <h1 className="text-lg mr-2">{teacher.name}</h1>
+                    {teacher.isAdmin && (
+                      <span className="px-2 flex items-center justify-center rounded-md text-white bg-jhc-blue-primary text-[12px]">
+                        Admin
+                      </span>
+                    )}
+                  </div>
                   <span className="text-xs text-[#9c9c9c]">
                     {teacher.email}
                   </span>
                 </div>
               </div>
-              <FontAwesomeIcon
-                icon={faTrash}
-                onClick={() => {
-                  activatePopupCenter(
-                    <ConfirmDelete
-                      handleDelete={() => {
-                        handleDelete(index);
-                        deactivatePopupCenter();
-                      }}
-                    />
-                  );
-                }}
-                className="bg-red-500 p-2 rounded-md cursor-pointer text-xs"
-              />
+              <div className="flex justify-center items-center space-x-4">
+                {teacher.isAdmin ? (
+                  <button
+                    className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
+                    onClick={() => handleRemoveAdmin(teacher.UID)}
+                  >
+                    Remove Admin
+                  </button>
+                ) : (
+                  <button
+                    className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
+                    onClick={() => handleAddAdmin(teacher.UID)}
+                  >
+                    Make Admin
+                  </button>
+                )}
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => {
+                    activatePopupCenter(
+                      <ConfirmDelete
+                        handleDelete={() => {
+                          handleDelete(index);
+                          deactivatePopupCenter();
+                        }}
+                      />
+                    );
+                  }}
+                  className="bg-red-500 p-2 rounded-md cursor-pointer text-xs"
+                />
+              </div>
             </div>
           );
         })}

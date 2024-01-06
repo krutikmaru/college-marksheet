@@ -12,8 +12,11 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    name: "Meera",
-    email: "meera@meera.com",
+    UID: "BSCIT_AS",
+    course: "BSCIT",
+    name: "Afreen Shaikh",
+    email: "afreenshaikh@jaihindcollege.edu.in",
+    isAdmin: false,
   });
 
   const value = {

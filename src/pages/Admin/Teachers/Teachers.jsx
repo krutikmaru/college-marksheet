@@ -3,17 +3,11 @@ import { useApplicationManager } from "../../../contexts/ApplicationContext";
 import { useDataStore } from "../../../contexts/DataStoreContext";
 import SelectBatch from "../../../Components/reusables/SelectBatch";
 import SelectCourse from "../../../Components/reusables/SelectCourse";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
-
-import {
-  faArrowLeft,
-  faMinus,
-  faPlus,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
 import { getAbbreviation } from "../../../utils/functions/getAbbrevation";
 import toast from "react-hot-toast";
+import ActionButtons from "../../../Components/Admin/Teachers/ActionButtons";
+import AddTeacher from "../../../Components/Admin/Teachers/AddTeacher";
+import TeacherList from "../../../Components/Admin/Teachers/TeacherList";
 
 const Teachers = () => {
   const [selectedBatch, setSelectedBatch] = useState(null);
@@ -23,11 +17,7 @@ const Teachers = () => {
   const [teacherEmail, setTeacherEmail] = useState("");
   const { course, teachers, setTeachers, admins, setAdmins } = useDataStore();
 
-  const {
-    setSelectedMenubarItemId,
-    activatePopupCenter,
-    deactivatePopupCenter,
-  } = useApplicationManager();
+  const { setSelectedMenubarItemId } = useApplicationManager();
 
   useEffect(() => {
     setSelectedMenubarItemId("55e6ca900aaf432a8dea13820a36ddb1");
@@ -97,7 +87,7 @@ const Teachers = () => {
     copy = JSON.parse(JSON.stringify(admins));
     copy.admins = copy.admins.filter((admin) => admin.UID !== UID);
     setAdmins(copy);
-    toast.success("Removed   Admin");
+    toast.error("Removed  Admin");
   };
 
   if (!selectedBatch) {
@@ -120,168 +110,37 @@ const Teachers = () => {
             Teachers 🧑🏼‍🏫
           </span>
         </h1>
-        <div className="my-4 flex items-center justify-between">
-          <button
-            className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
-            onClick={goBackToCourse}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} className="mr-3" />
-            Back to Courses
-          </button>
-          <button
-            onClick={() => setIsAddTeacher(!isAddTeacher)}
-            className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
-          >
-            <FontAwesomeIcon
-              icon={isAddTeacher ? faMinus : faPlus}
-              className="mr-3"
-            />
-            Add Teacher
-          </button>
-        </div>
       </div>
-
+      <ActionButtons {...{ goBackToCourse, isAddTeacher, setIsAddTeacher }} />
       {isAddTeacher && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.4,
-            ease: "easeInOut",
+        <AddTeacher
+          {...{
+            teacherName,
+            setTeacherName,
+            teacherEmail,
+            setTeacherEmail,
+            selectedCourse,
+            handleAdd,
           }}
-          className="bg-[#1b1b1b] w-full p-4 rounded-md flex flex-col items-start justify-center my-3 space-y-4"
-        >
-          <div className="w-full">
-            <span className="text-xs text-[#5f5f5f] font-medium">
-              Teacher Name
-            </span>
-            <input
-              value={teacherName}
-              onChange={(e) => {
-                setTeacherName(e.target.value);
-              }}
-              className="w-full bg-[#131313] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-xs text-[#5f5f5f] font-medium">
-              Teacher Email
-            </span>
-            <input
-              value={teacherEmail}
-              onChange={(e) => {
-                setTeacherEmail(e.target.value);
-              }}
-              className="w-full bg-[#131313] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
-            />
-          </div>
-          <div className="w-full">
-            <span className="text-xs text-[#5f5f5f] font-medium">UID</span>
-            <div
-              disabled
-              className="w-full bg-[#131313] text-[#525252] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
-            >
-              {`${selectedCourse}-${getAbbreviation(teacherName)}`}
-            </div>
-          </div>
-          <div>
-            <button
-              onClick={handleAdd}
-              className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
-            >
-              Add
-            </button>
-          </div>
-        </motion.div>
+        />
       )}
-      <div className="w-full flex flex-col space-y-2">
-        {teachers[selectedCourse].teachers.map((teacher, index) => {
-          return (
-            <div
-              key={teacher.UID}
-              className="w-full min-h-[80px] bg-[#141414] rounded-md p-4 px-7 flex justify-between items-center"
-            >
-              <div className="flex justify-start items-center">
-                <div className="w-9 h-9 rounded-full flex justify-center items-center mr-4 bg-jhc-blue-primary relative overflow-hidden">
-                  {teacher.name[0].toUpperCase()}
-                </div>
-                <div className="flex flex-col justify-center items-start">
-                  <div className="flex">
-                    <h1 className="text-lg mr-2">{teacher.name}</h1>
-                    {teacher.isAdmin && (
-                      <span className="px-2 flex items-center justify-center rounded-md text-white bg-jhc-blue-primary text-[12px]">
-                        Admin
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-xs text-[#9c9c9c]">
-                    {teacher.email}
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-center items-center space-x-4">
-                {teacher.isAdmin ? (
-                  <button
-                    className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
-                    onClick={() => handleRemoveAdmin(teacher.UID)}
-                  >
-                    Remove Admin
-                  </button>
-                ) : (
-                  <button
-                    className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
-                    onClick={() => handleAddAdmin(teacher.UID)}
-                  >
-                    Make Admin
-                  </button>
-                )}
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => {
-                    activatePopupCenter(
-                      <ConfirmDelete
-                        handleDelete={() => {
-                          handleDelete(index);
-                          deactivatePopupCenter();
-                        }}
-                      />
-                    );
-                  }}
-                  className="bg-red-500 p-2 rounded-md cursor-pointer text-xs"
-                />
-              </div>
-            </div>
-          );
-        })}
+      <div>
+        {teachers[selectedCourse].teachers.length === 0 ? (
+          <h1 className="text-[#727272]">No Student Data</h1>
+        ) : (
+          <TeacherList
+            {...{
+              teachers,
+              selectedCourse,
+              handleRemoveAdmin,
+              handleAddAdmin,
+              handleDelete,
+            }}
+          />
+        )}
       </div>
     </div>
   );
 };
 
 export default Teachers;
-
-const ConfirmDelete = ({ handleDelete }) => {
-  const { deactivatePopupCenter } = useApplicationManager();
-  return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="w-[350px] h-60 rounded-md bg-[#131313] font-lexend flex flex-col justify-center items-center"
-    >
-      <h1 className="text-white text-xl mb-5">Confirm Delete?</h1>
-      <div>
-        <span
-          onClick={deactivatePopupCenter}
-          className="mr-4 text-[#5c5c5c] text-sm underline cursor-pointer"
-        >
-          Cancle
-        </span>
-        <span
-          onClick={handleDelete}
-          className="py-2 px-4 text-sm bg-red-600 text-white rounded-md cursor-pointer"
-        >
-          Delete
-        </span>
-      </div>
-    </div>
-  );
-};

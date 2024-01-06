@@ -35,12 +35,12 @@ export const menubar = {
     },
   ],
   account: [
-    {
-      title: "Account",
-      icon: faUser,
-      id: "3cbd85224a4c490e91ac180c4e3e0db5",
-      navigate: "/account",
-    },
+    // {
+    //   title: "Account",
+    //   icon: faUser,
+    //   id: "3cbd85224a4c490e91ac180c4e3e0db5",
+    //   navigate: "/account",
+    // },
     {
       title: "Logout",
       icon: faRightFromBracket,

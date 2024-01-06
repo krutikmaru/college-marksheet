@@ -74,6 +74,10 @@ const Subjects = () => {
   };
 
   const handleAddSubject = (sem) => {
+    if (teachers[selectedCourse].teachers.length === 0) {
+      toast.error(`Teachers for ${selectedCourse} not set`);
+      return;
+    }
     const copy = JSON.parse(JSON.stringify(course));
     copy.data[selectedBatch][selectedCourse][sem].subjects.unshift({
       objectId: v4(),

@@ -23,7 +23,11 @@ const Teachers = () => {
   const [teacherEmail, setTeacherEmail] = useState("");
   const { course, teachers, setTeachers } = useDataStore();
 
-  const { setSelectedMenubarItemId } = useApplicationManager();
+  const {
+    setSelectedMenubarItemId,
+    activatePopupCenter,
+    deactivatePopupCenter,
+  } = useApplicationManager();
 
   useEffect(() => {
     setSelectedMenubarItemId("55e6ca900aaf432a8dea13820a36ddb1");
@@ -75,7 +79,13 @@ const Teachers = () => {
   return (
     <div className=" flex w-full min-h-screen flex-col  px-8 py-10">
       <div>
-        <div className="mb-4 flex items-center justify-between">
+        <h1 className="text-2xl flex justify-between items-center">
+          <span>
+            <span className="text-jhc-blue-primary">{selectedCourse} </span>{" "}
+            Teachers 🧑🏼‍🏫
+          </span>
+        </h1>
+        <div className="my-4 flex items-center justify-between">
           <button
             className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
             onClick={goBackToCourse}
@@ -169,7 +179,16 @@ const Teachers = () => {
               </div>
               <FontAwesomeIcon
                 icon={faTrash}
-                onClick={() => handleDelete(index)}
+                onClick={() => {
+                  activatePopupCenter(
+                    <ConfirmDelete
+                      handleDelete={() => {
+                        handleDelete(index);
+                        deactivatePopupCenter();
+                      }}
+                    />
+                  );
+                }}
                 className="bg-red-500 p-2 rounded-md cursor-pointer text-xs"
               />
             </div>
@@ -181,3 +200,29 @@ const Teachers = () => {
 };
 
 export default Teachers;
+
+const ConfirmDelete = ({ handleDelete }) => {
+  const { deactivatePopupCenter } = useApplicationManager();
+  return (
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="w-[350px] h-60 rounded-md bg-[#131313] font-lexend flex flex-col justify-center items-center"
+    >
+      <h1 className="text-white text-xl mb-5">Confirm Delete?</h1>
+      <div>
+        <span
+          onClick={deactivatePopupCenter}
+          className="mr-4 text-[#5c5c5c] text-sm underline cursor-pointer"
+        >
+          Cancle
+        </span>
+        <span
+          onClick={handleDelete}
+          className="py-2 px-4 text-sm bg-red-600 text-white rounded-md cursor-pointer"
+        >
+          Delete
+        </span>
+      </div>
+    </div>
+  );
+};

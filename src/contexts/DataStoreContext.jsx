@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 import { courseData } from "../utils/data/dummy/course";
 import { teachersData } from "../utils/data/dummy/teachers";
+import { studentsData } from "../utils/data/dummy/students";
+import { adminData } from "../utils/data/dummy/admin";
 
 const DataStoreContext = createContext();
 
@@ -15,12 +17,18 @@ export const useDataStore = () => {
 export const DataStoreProvider = ({ children }) => {
   const [course, setCourse] = useState(courseData);
   const [teachers, setTeachers] = useState(teachersData);
+  const [students, setStudents] = useState(studentsData);
+  const [admins, setAdmins] = useState(adminData);
 
   const value = {
     course,
     setCourse,
     teachers,
     setTeachers,
+    students,
+    setStudents,
+    admins,
+    setAdmins,
   };
   return (
     <DataStoreContext.Provider value={value}>

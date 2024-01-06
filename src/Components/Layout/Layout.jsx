@@ -4,6 +4,7 @@ import Navigation from "../Navigation/Navigation";
 import MenubarAdmin from "../Admin/Menubar/Menubar";
 import MenubarTeacher from "../Teacher/Menubar/Menubar";
 import { Toaster } from "react-hot-toast";
+import FullScreenPopupCenter from "../reusables/FullScreenPopupCenter";
 
 const Layout = (props) => {
   const { isSmallScreen } = useApplicationManager();
@@ -19,7 +20,7 @@ const MobileLayout = (props) => {
 
   return (
     <>
-      {/* <FullScreenPopupCenter /> */}
+      <FullScreenPopupCenter />
       <Navigation />
       <Toaster />
       {/* {isMobileMenuActive && <MenubarMobile />} */}
@@ -34,7 +35,7 @@ const DesktopLayout = (props) => {
   const { adminLogin } = useApplicationManager();
   return (
     <>
-      {/* <FullScreenPopupCenter /> */}
+      <FullScreenPopupCenter />
       <Navigation />
       <Toaster />
       <div className="w-full min-h-screen font-lexend bg-black-main flex justify-start items-start text-white mt-16">

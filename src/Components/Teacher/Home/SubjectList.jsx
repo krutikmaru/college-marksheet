@@ -2,6 +2,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faCheck,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -14,7 +15,6 @@ const SubjectList = ({
   setExamType,
   setSubject,
 }) => {
-  console.log(teacherSubjects);
   return (
     <div className="flex flex-col">
       <ExamTypeSelector {...{ examTypes, examType, setExamType }} />
@@ -44,16 +44,22 @@ const SubjectList = ({
                 </div>
               </div>
               <div className="absolute bottom-5 w-full mx-3 flex justify-center items-center">
-                {teacherSubject.isPublished[examType.toLowerCase()] ? (
-                  <button className="text-sm text-white bg-green-500 py-2 px-4 rounded-md w-[80%] ">
+                {teacherSubject.status[examType.toLowerCase()] ===
+                "published" ? (
+                  <button className="text-sm text-white bg-green-600 py-2 px-4 rounded-md w-[80%] ">
                     <FontAwesomeIcon icon={faCheck} />
                   </button>
-                ) : (
+                ) : teacherSubject.status[examType.toLowerCase()] ===
+                  "unpublished" ? (
                   <button
                     onClick={() => setSubject(teacherSubject)}
                     className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md w-[80%] "
                   >
                     <FontAwesomeIcon icon={faArrowRight} />
+                  </button>
+                ) : (
+                  <button className="text-sm text-white bg-yellow-600 py-2 px-4 rounded-md w-[80%] ">
+                    <FontAwesomeIcon icon={faClock} />
                   </button>
                 )}
               </div>

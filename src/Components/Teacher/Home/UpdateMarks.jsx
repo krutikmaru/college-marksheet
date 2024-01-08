@@ -4,26 +4,46 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import toast from "react-hot-toast";
 
 const UpdateMarks = ({
   batch,
-  course,
+  courseName,
   examType,
   selectedSubject,
   handleStudentMarkChange,
   students,
   goBackToSubjectList,
+  course,
+  setCourse,
 }) => {
-  console.log({
-    batch,
-    course,
-    examType,
-    selectedSubject,
-    handleStudentMarkChange,
-    students,
-    goBackToSubjectList,
-  });
-  const handlePublish = () => {};
+  const handlePublish = () => {
+    const areMissingMarks = students[batch][courseName].students.filter(
+      (student) =>
+        !student[selectedSubject.sem][selectedSubject.abbrevation][
+          examType.toLowerCase()
+        ]
+    );
+    if (areMissingMarks.length !== 0) {
+      toast.error("Please fill in all marks");
+      return;
+    } else {
+      const copy = JSON.parse(JSON.stringify(course));
+      copy.data[batch][courseName][selectedSubject.sem].subjects = copy.data[
+        batch
+      ][courseName][selectedSubject.sem].subjects.map((subject) => {
+        if (subject.objectId === selectedSubject.objectId) {
+          subject.status[examType.toLowerCase()] = "pending";
+          return subject;
+        }
+        return subject;
+      });
+
+      setCourse(copy);
+      toast.success("Published");
+      goBackToSubjectList();
+    }
+  };
   return (
     <div className="flex flex-col">
       <h1 className="text-2xl font-medium">
@@ -45,8 +65,8 @@ const UpdateMarks = ({
           Publish
         </button>
       </div>
-      <div className="flex flex-col space-y-2">
-        {students[batch][course].students.map((student, index) => {
+      <div className="flex flex-col space-y-4 pb-20">
+        {students[batch][courseName].students.map((student, index) => {
           return (
             <StudentMarkSection
               key={student.uid}

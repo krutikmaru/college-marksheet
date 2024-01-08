@@ -7,7 +7,7 @@ import UpdateMarks from "../../../Components/Teacher/Home/UpdateMarks";
 
 const Home = () => {
   const { user } = useUser();
-  const { course, students, setStudents } = useDataStore();
+  const { course, setCourse, students, setStudents } = useDataStore();
 
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [selectedSubject, setSubject] = useState(null);
@@ -23,11 +23,11 @@ const Home = () => {
   };
 
   const handleStudentMarkChange = (index, value) => {
-    console.log(index, value);
     const copy = JSON.parse(JSON.stringify(students));
     copy[selectedBatch][user.course].students[index][selectedSubject.sem][
       selectedSubject.abbrevation
-    ][examType] = value;
+    ][examType.toLowerCase()] = value;
+    console.log(copy);
     setStudents(copy);
   };
 
@@ -49,12 +49,14 @@ const Home = () => {
     return (
       <UpdateMarks
         batch={selectedBatch}
-        course={user.course}
+        courseName={user.course}
         examType={examType}
         selectedSubject={selectedSubject}
         handleStudentMarkChange={handleStudentMarkChange}
         students={students}
         goBackToSubjectList={goBackToSubjectList}
+        course={course}
+        setCourse={setCourse}
       />
     );
   }

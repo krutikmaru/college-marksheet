@@ -11,12 +11,19 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
+  // const [user, setUser] = useState({
+  //   UID: "BSCIT_AS",
+  //   course: "BSCIT",
+  //   name: "Afreen Shaikh",
+  //   email: "afreenshaikh@jaihindcollege.edu.in",
+  //   isAdmin: false,
+  // });
   const [user, setUser] = useState({
-    UID: "BSCIT_AS",
+    UID: "BSCIT_WR",
+    name: "Wilson Rao",
     course: "BSCIT",
-    name: "Afreen Shaikh",
-    email: "afreenshaikh@jaihindcollege.edu.in",
-    isAdmin: false,
+    email: "wilsonrao@jaihindcollege.edu.in",
+    isAdmin: true,
   });
 
   const value = {

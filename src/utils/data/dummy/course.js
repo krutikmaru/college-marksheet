@@ -11,11 +11,11 @@ export const courseData = {
               title: "Computer Organization & Architecture",
               id: "SBIT101",
               abbrevation: "COA",
-              isPublished: {
-                ca1: true,
-                ca2: true,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -23,11 +23,11 @@ export const courseData = {
               title: "Communication Skills",
               id: "SBIT102",
               abbrevation: "CS",
-              isPublished: {
-                ca1: true,
-                ca2: true,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -35,11 +35,11 @@ export const courseData = {
               title: "Fundamentals Of Programming",
               id: "SBIT103",
               abbrevation: "FOP",
-              isPublished: {
-                ca1: true,
-                ca2: true,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -47,11 +47,11 @@ export const courseData = {
               title: "Web Programming",
               id: "SBIT104",
               abbrevation: "WP",
-              isPublished: {
-                ca1: true,
-                ca2: true,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -59,11 +59,11 @@ export const courseData = {
               title: "Discrete Mathematics",
               id: "SBIT105",
               abbrevation: "DM",
-              isPublished: {
-                ca1: true,
-                ca2: true,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
           ],
@@ -83,11 +83,11 @@ export const courseData = {
               title: "Python Programming",
               id: "SBIT201",
               abbrevation: "PP",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -95,11 +95,11 @@ export const courseData = {
               title: "Computer Networks",
               id: "SBIT202",
               abbrevation: "CN",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -107,11 +107,11 @@ export const courseData = {
               title: "Microprocessor",
               id: "SBIT203",
               abbrevation: "MP",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -119,11 +119,11 @@ export const courseData = {
               title: "Green Computing",
               id: "SBIT204",
               abbrevation: "GC",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -131,20 +131,20 @@ export const courseData = {
               title: "Advance Web Programming",
               id: "SBIT205",
               abbrevation: "AWP",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
           ],
           assignedTeacher: [
             { name: "Fatima Shaikh", id: "BSCIT_FS" },
             { name: "Afreen Shaikh", id: "BSCIT_AS" },
-            { name: "Afreen Shaikh", id: "BSCIT_AS" },
             { name: "Shruti Shah", id: "BSCIT_SS" },
             { name: "Shraddha Devi Singh", id: "BSCIT_SDS" },
+            { name: "Afreen Shaikh", id: "BSCIT_AS" },
           ],
         },
         SEM3: {
@@ -155,11 +155,11 @@ export const courseData = {
               title: "Database Management Systems",
               id: "SBIT301",
               abbrevation: "DBMS",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -167,11 +167,11 @@ export const courseData = {
               title: "Operating Systems",
               id: "SBIT302",
               abbrevation: "OS",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -179,11 +179,11 @@ export const courseData = {
               title: "Core Java",
               id: "SBIT303",
               abbrevation: "CJ",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -191,11 +191,11 @@ export const courseData = {
               title: "Data Structures",
               id: "SBIT304",
               abbrevation: "DS",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -203,11 +203,11 @@ export const courseData = {
               title: "Applied Mathematics",
               id: "SBIT305",
               abbrevation: "AM",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
           ],
@@ -227,11 +227,11 @@ export const courseData = {
               title: "ASP Dot Net",
               id: "SBIT401",
               abbrevation: "ADN",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -239,11 +239,11 @@ export const courseData = {
               title: "Computer Oriented Statistics and Analysis",
               id: "SBIT402",
               abbrevation: "COST",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -251,11 +251,11 @@ export const courseData = {
               title: "Advance Networks and Security",
               id: "SBIT403",
               abbrevation: "ANS",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -263,11 +263,11 @@ export const courseData = {
               title: "Internet of Things",
               id: "SBIT404",
               abbrevation: "IOT",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
             {
@@ -275,11 +275,11 @@ export const courseData = {
               title: "Software Methodologies and Management",
               id: "SBIT405",
               abbrevation: "SMM",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "published",
               },
             },
           ],
@@ -299,11 +299,11 @@ export const courseData = {
               title: "Mobile Application Development",
               id: "SBIT501",
               abbrevation: "MAD",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "pending",
               },
             },
             {
@@ -311,11 +311,11 @@ export const courseData = {
               title: "Unity",
               id: "SBIT502",
               abbrevation: "U",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "pending",
               },
             },
             {
@@ -323,11 +323,11 @@ export const courseData = {
               title: "Theory Of Computing",
               id: "SBIT503",
               abbrevation: "TOC",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "pending",
               },
             },
             {
@@ -335,11 +335,11 @@ export const courseData = {
               title: "Artificial Intelligence",
               id: "SBIT504",
               abbrevation: "AI",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "pending",
               },
             },
             {
@@ -347,11 +347,11 @@ export const courseData = {
               title: "Service Oriented Architecture",
               id: "SBIT505",
               abbrevation: "SOA",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "published",
+                ca2: "published",
+                pr: "published",
+                see: "pending",
               },
             },
           ],
@@ -371,11 +371,11 @@ export const courseData = {
               title: "Cyber Security & Forensics",
               id: "SBIT601",
               abbrevation: "CSF",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "unpublished",
+                ca2: "unpublished",
+                pr: "unpublished",
+                see: "unpublished",
               },
             },
             {
@@ -383,11 +383,11 @@ export const courseData = {
               title: "Infrastructure Management",
               id: "SBIT602",
               abbrevation: "ITM",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "unpublished",
+                ca2: "unpublished",
+                pr: "unpublished",
+                see: "unpublished",
               },
             },
             {
@@ -395,11 +395,11 @@ export const courseData = {
               title: "Big Data",
               id: "SBIT603",
               abbrevation: "BD",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "unpublished",
+                ca2: "unpublished",
+                pr: "unpublished",
+                see: "unpublished",
               },
             },
             {
@@ -407,11 +407,11 @@ export const courseData = {
               title: "Machine Learning",
               id: "SBIT604",
               abbrevation: "ML",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "unpublished",
+                ca2: "unpublished",
+                pr: "unpublished",
+                see: "unpublished",
               },
             },
             {
@@ -419,11 +419,11 @@ export const courseData = {
               title: "Cloud Computing",
               id: "SBIT605",
               abbrevation: "CC",
-              isPublished: {
-                ca1: false,
-                ca2: false,
-                pr: false,
-                see: false,
+              status: {
+                ca1: "unpublished",
+                ca2: "unpublished",
+                pr: "unpublished",
+                see: "unpublished",
               },
             },
           ],

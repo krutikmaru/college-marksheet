@@ -8,16 +8,28 @@ import toast from "react-hot-toast";
 import ActionButtons from "../../../Components/Admin/Teachers/ActionButtons";
 import AddTeacher from "../../../Components/Admin/Teachers/AddTeacher";
 import TeacherList from "../../../Components/Admin/Teachers/TeacherList";
-
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import app from "../../../firebase/firebase";
 const Teachers = () => {
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [teacherName, setTeacherName] = useState("");
   const [teacherEmail, setTeacherEmail] = useState("");
-  const { course, teachers, setTeachers, admins, setAdmins } = useDataStore();
+  const [teacherPassword, setTeacherPassword] = useState("");
+  const {
+    course,
+    teachers,
+    setTeachers,
+    admins,
+    setAdmins,
+    setIsUpdating,
+    updateTeachersAndAdmins,
+  } = useDataStore();
 
   const { setSelectedMenubarItemId } = useApplicationManager();
+
+  const auth = getAuth(app);
 
   useEffect(() => {
     setSelectedMenubarItemId("55e6ca900aaf432a8dea13820a36ddb1");
@@ -31,7 +43,7 @@ const Teachers = () => {
     setSelectedCourse(null);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!teacherName || !teacherEmail) {
       toast.error("All Fields are required");
       return;
@@ -43,16 +55,35 @@ const Teachers = () => {
       email: teacherEmail,
       course: selectedCourse,
     });
+
+    setIsUpdating(true);
+
+    try {
+      await createUserWithEmailAndPassword(auth, teacherEmail, teacherPassword);
+      await updateTeachersAndAdmins(copy);
+      setIsUpdating(false);
+    } catch (e) {
+      toast.error("Error Creating Teacher");
+      setIsUpdating(false);
+      return;
+    }
+
     setTeachers(copy);
     setTeacherName("");
     setTeacherEmail("");
-    toast.success("Teacher Added Succefully");
+    setTeacherPassword("");
+    toast.success("Teacher Created Succefully");
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (index, teacher) => {
     const copy = JSON.parse(JSON.stringify(teachers));
     copy[selectedCourse].teachers.splice(index, 1);
     setTeachers(copy);
+    if (teacher.isAdmin) {
+      setAdmins({
+        admins: admins.admins.filter((admin) => admin.UID !== teacher.UID),
+      });
+    }
     toast.error("Teacher Deleted Succefully");
   };
 
@@ -119,6 +150,8 @@ const Teachers = () => {
             setTeacherName,
             teacherEmail,
             setTeacherEmail,
+            teacherPassword,
+            setTeacherPassword,
             selectedCourse,
             handleAdd,
           }}

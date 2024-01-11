@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { useUser } from "../../contexts/UserContext";
 import toast from "react-hot-toast";
 import { useApplicationManager } from "../../contexts/ApplicationContext";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { collection, addDoc } from "firebase/firestore";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { useDataStore } from "../../contexts/DataStoreContext";
 
 const TeacherLogin = ({
   auth,
@@ -16,9 +19,12 @@ const TeacherLogin = ({
 }) => {
   const { setUser } = useUser();
   const { setAdminLogin } = useApplicationManager();
+  const { teachers } = useDataStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [resetLinkSent, setResetLinkSent] = useState(false);
+
   const parentVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0 },
@@ -44,34 +50,50 @@ const TeacherLogin = ({
       toast.error("Password too short");
       return;
     }
-    setUser({ email, name: "Krutik" });
     setAdminLogin(false);
-    // try {
-    //   setAuthRequestSent(true);
-    //   await createUserWithEmailAndPassword(auth, email, password);
-
-    //   const usersCollection = collection(firestore, "Users");
-    //   await addDoc(usersCollection, {
-    //     name: name,
-    //     email: email,
-    //   });
-
-    //   setUser({
-    //     name: name,
-    //     email: email,
-    //   });
-    //   setAuthRequestSent(false);
-    // } catch (error) {
-    //   if (String(error).includes("auth/email-already-in-use")) {
-    //     toast.error("Email already in use");
-    //   } else {
-    //     toast.error("Error");
-    //   }
-    //   setAuthRequestSent(false);
-    // }
+    try {
+      setAuthRequestSent(true);
+      await signInWithEmailAndPassword(auth, email, password);
+      let foundTeacher = null;
+      for (let course in teachers) {
+        for (let i = 0; i < teachers[course].teachers.length; i++) {
+          if (teachers[course].teachers[i].email === email) {
+            foundTeacher = teachers[course].teachers[i];
+            break;
+          }
+        }
+      }
+      setUser(foundTeacher);
+    } catch (error) {
+      const errorCode = error.code;
+      if (String(errorCode) === "auth/invalid-credential") {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error(error.message);
+      }
+    } finally {
+      setAuthRequestSent(false);
+    }
   };
 
-  const handleResetPassword = () => {};
+  const handleResetPassword = async () => {
+    if (!email) {
+      toast.error("Email is required");
+      return;
+    }
+    if (resetLinkSent) {
+      toast("Reset Link already sent", { icon: "✉️" });
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset email sent. Check your inbox.");
+      setResetLinkSent(true);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong, please try again later.");
+    }
+  };
 
   return (
     <motion.div

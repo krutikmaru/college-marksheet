@@ -66,10 +66,10 @@ const Students = () => {
           return;
         }
         studentObject[sem][subject["abbrevation"]] = {
-          ca1: undefined,
-          ca2: undefined,
-          pr: undefined,
-          see: undefined,
+          ca1: null,
+          ca2: null,
+          pr: null,
+          see: null,
         };
       }
     }

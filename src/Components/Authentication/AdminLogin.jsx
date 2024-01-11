@@ -3,12 +3,14 @@ import Header from "./Header";
 import { motion } from "framer-motion";
 import { useUser } from "../../contexts/UserContext";
 import toast from "react-hot-toast";
-// import { getDocs, collection, where, query } from "firebase/firestore";
 
-// import {
-//   signInWithEmailAndPassword,
-//   sendPasswordResetEmail,
-// } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { useApplicationManager } from "../../contexts/ApplicationContext";
+import { useDataStore } from "../../contexts/DataStoreContext";
+
 const AdminLogin = ({
   auth,
   firestore,
@@ -16,10 +18,14 @@ const AdminLogin = ({
   authRequestSent,
   setAuthRequestSent,
 }) => {
-  const { setUser } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [resetLinkSent, setResetLinkSent] = useState(false);
+
+  const { setAdminLogin } = useApplicationManager();
+  const { setUser } = useUser();
+  const { admins } = useDataStore();
+
   const parentVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0 },
@@ -45,52 +51,52 @@ const AdminLogin = ({
       toast.error("Password is required");
       return;
     }
-    setUser({ email, name: "Krutik" });
-    // try {
-    //   setAuthRequestSent(true);
-    //   await signInWithEmailAndPassword(auth, email, password);
-
-    //   const usersCollectionRef = collection(firestore, "Users");
-    //   const q = query(usersCollectionRef, where("email", "==", email));
-    //   const querySnapshot = await getDocs(q);
-
-    //   if (!querySnapshot.empty) {
-    //     const userDocSnapshot = querySnapshot.docs[0];
-    //     const userData = userDocSnapshot.data();
-    //     setUser(userData);
-    //     setAuthRequestSent(false);
-    //   } else {
-    //     console.log("User document not found");
-    //   }
-    // } catch (error) {
-    //   const errorCode = error.code;
-    //   if (String(errorCode) === "auth/invalid-credential") {
-    //     toast.error("Invalid email or password");
-    //   } else {
-    //     toast.error(error.message);
-    //   }
-    // } finally {
-    //   setAuthRequestSent(false);
-    // }
+    setAdminLogin(true);
+    try {
+      setAuthRequestSent(true);
+      await signInWithEmailAndPassword(auth, email, password);
+      let foundTeacher = null;
+      for (let i = 0; i < admins.admins.length; i++) {
+        if (admins.admins[i].email === email) {
+          foundTeacher = admins.admins[i];
+          break;
+        }
+      }
+      if (foundTeacher) {
+        setUser(foundTeacher);
+      } else {
+        toast.error("You are not an administrator");
+        auth.signOut();
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      if (String(errorCode) === "auth/invalid-credential") {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error(error.message);
+      }
+    } finally {
+      setAuthRequestSent(false);
+    }
   };
 
   const handleResetPassword = async () => {
-    // if (!email) {
-    //   toast.error("Email is required");
-    //   return;
-    // }
-    // if (resetLinkSent) {
-    //   toast("Reset Link already sent", { icon: "✉️" });
-    //   return;
-    // }
-    // try {
-    //   await sendPasswordResetEmail(auth, email);
-    //   toast.success("Password reset email sent. Check your inbox.");
-    //   setResetLinkSent(true);
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("Something went wrong, please try again later.");
-    // }
+    if (!email) {
+      toast.error("Email is required");
+      return;
+    }
+    if (resetLinkSent) {
+      toast("Reset Link already sent", { icon: "✉️" });
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset email sent. Check your inbox.");
+      setResetLinkSent(true);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong, please try again later.");
+    }
   };
   return (
     <motion.div

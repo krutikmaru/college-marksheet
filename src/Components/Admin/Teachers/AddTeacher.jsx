@@ -6,6 +6,8 @@ const AddTeacher = ({
   setTeacherName,
   teacherEmail,
   setTeacherEmail,
+  teacherPassword,
+  setTeacherPassword,
   selectedCourse,
   handleAdd,
 }) => {
@@ -42,11 +44,18 @@ const AddTeacher = ({
         />
       </div>
       <div className="w-full">
+        <span className="text-xs text-[#5f5f5f] font-medium">Password</span>
+        <input
+          value={teacherPassword}
+          onChange={(e) => {
+            setTeacherPassword(e.target.value);
+          }}
+          className="w-full bg-[#131313] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
+        />
+      </div>
+      <div className="w-full">
         <span className="text-xs text-[#5f5f5f] font-medium">UID</span>
-        <div
-          disabled
-          className="w-full bg-[#131313] text-[#525252] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base"
-        >
+        <div className="w-full bg-[#131313] text-[#525252] py-3 px-4 rounded-md border-2 border-[#1d1d1d] outline-none text-base">
           {`${selectedCourse}-${getAbbreviation(teacherName)}`}
         </div>
       </div>

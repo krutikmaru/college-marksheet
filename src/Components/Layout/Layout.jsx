@@ -2,9 +2,10 @@ import React from "react";
 import { useApplicationManager } from "../../contexts/ApplicationContext";
 import Navigation from "../Navigation/Navigation";
 import MenubarAdmin from "../Admin/Menubar/Menubar";
-import MenubarTeacher from "../Teacher/Menubar/Menubar";
 import { Toaster } from "react-hot-toast";
 import FullScreenPopupCenter from "../reusables/FullScreenPopupCenter";
+import Loading from "../reusables/Loading";
+import { useDataStore } from "../../contexts/DataStoreContext";
 
 const Layout = (props) => {
   const { isSmallScreen } = useApplicationManager();
@@ -32,9 +33,12 @@ const MobileLayout = (props) => {
 };
 
 const DesktopLayout = (props) => {
+  const { user } = useDataStore();
   const { adminLogin } = useApplicationManager();
+  const { isFetching, isUpdating } = useDataStore();
   return (
     <>
+      {(isFetching || isUpdating) && <Loading />}
       <FullScreenPopupCenter />
       <Navigation />
       <Toaster />

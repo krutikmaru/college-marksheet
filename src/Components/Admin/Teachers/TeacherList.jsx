@@ -58,7 +58,7 @@ const TeacherList = ({
                   activatePopupCenter(
                     <ConfirmDelete
                       handleDelete={() => {
-                        handleDelete(index);
+                        handleDelete(index, teacher);
                         deactivatePopupCenter();
                       }}
                     />

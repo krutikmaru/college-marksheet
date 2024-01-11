@@ -13,7 +13,7 @@ import { v4 } from "uuid";
 const Subjects = () => {
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const { course, setCourse, teachers } = useDataStore();
+  const { course, setCourse, teachers, updateCourse } = useDataStore();
 
   const { setSelectedMenubarItemId } = useApplicationManager();
   useEffect(() => {
@@ -104,13 +104,17 @@ const Subjects = () => {
     setCourse(copy);
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     setCourse(course);
-    toast.success("Updated");
-    navigate("/");
-
-    // Migrate course to database
+    const result = await updateCourse();
+    if (result === "success") {
+      toast.success("Updated");
+      navigate("/");
+    } else {
+      toast.error("Failed");
+    }
   };
+
   if (!selectedBatch) {
     return <SelectBatch course={course} setSelectedBatch={setSelectedBatch} />;
   }

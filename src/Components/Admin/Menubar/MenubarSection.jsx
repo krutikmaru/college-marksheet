@@ -5,6 +5,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useApplicationManager } from "../../../contexts/ApplicationContext";
 import { useUser } from "../../../contexts/UserContext";
+import { getAuth } from "firebase/auth";
+import app from "../../../firebase/firebase";
 
 const MenubarSection = ({ tag, data }) => {
   const {
@@ -66,15 +68,15 @@ const ConfirmLogout = () => {
   const { deactivatePopupCenter } = useApplicationManager();
   const { setUser } = useUser();
   const logout = () => {
-    // const auth = getAuth(app);
-    // try {
-    //   auth.signOut();
-    //   setUser(null);
-    // } catch (e) {
-    //   console.log(e);
-    // } finally {
-    //   deactivatePopupCenter();
-    // }
+    const auth = getAuth(app);
+    try {
+      auth.signOut();
+      setUser(null);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      deactivatePopupCenter();
+    }
   };
   return (
     <div

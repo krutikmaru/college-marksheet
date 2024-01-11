@@ -5,6 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import toast from "react-hot-toast";
+import { useDataStore } from "../../../contexts/DataStoreContext";
 
 const UpdateMarks = ({
   batch,
@@ -17,7 +18,9 @@ const UpdateMarks = ({
   course,
   setCourse,
 }) => {
-  const handlePublish = () => {
+  const { updateCourse } = useDataStore();
+
+  const handlePublish = async () => {
     const areMissingMarks = students[batch][courseName].students.filter(
       (student) =>
         !student[selectedSubject.sem][selectedSubject.abbrevation][
@@ -40,7 +43,7 @@ const UpdateMarks = ({
       });
 
       setCourse(copy);
-      toast.success("Published");
+      await updateCourse(copy);
       goBackToSubjectList();
     }
   };
@@ -58,11 +61,11 @@ const UpdateMarks = ({
           Back to Batches
         </button>
         <button
-          className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
+          className="text-sm text-white bg-yellow-600 py-2 px-4 rounded-md "
           onClick={handlePublish}
         >
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="mr-3" />
-          Publish
+          Send to Publish
         </button>
       </div>
       <div className="flex flex-col space-y-4 pb-20">

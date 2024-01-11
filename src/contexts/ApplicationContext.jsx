@@ -13,7 +13,8 @@ export const useApplicationManager = () => {
 };
 
 export const ApplicationManagerProvider = ({ children }) => {
-  const [adminLogin, setAdminLogin] = useState(true);
+  const [adminLogin, setAdminLogin] = useState(false);
+
   const [selectedMenubarItemId, setSelectedMenubarItemId] = useState(
     "5225da39369d45d7bc3c05fd03f61b69"
   );

@@ -31,7 +31,10 @@ const SubjectList = ({
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-4">
         {teacherSubjects.map((teacherSubject) => {
           return (
-            <div className="w-[350px] h-[300px] mx-auto gap-0 mb-4 rounded-md overflow-hidden bg-[#131313] flex flex-col items-center relative">
+            <div
+              key={teacherSubject.id}
+              className="w-[350px] h-[300px] mx-auto gap-0 mb-4 rounded-md overflow-hidden bg-[#131313] flex flex-col items-center relative"
+            >
               <div className="w-full h-[130px] bg-[#0f0f0f] flex justify-center items-center  text-5xl font-medium">
                 {teacherSubject.abbrevation}
               </div>

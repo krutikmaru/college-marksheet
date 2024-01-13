@@ -84,6 +84,12 @@ const Subjects = () => {
       title: "",
       id: "",
       abbrevation: "",
+      status: {
+        ca1: "unpublished",
+        ca2: "unpublished",
+        pr: "unpublished",
+        see: "unpublished",
+      },
     });
     copy.data[selectedBatch][selectedCourse][sem].assignedTeacher.unshift({
       name: teachers[selectedCourse].teachers[0].name,
@@ -106,13 +112,8 @@ const Subjects = () => {
 
   const handleUpdate = async () => {
     setCourse(course);
-    const result = await updateCourse();
-    if (result === "success") {
-      toast.success("Updated");
-      navigate("/");
-    } else {
-      toast.error("Failed");
-    }
+    await updateCourse();
+    navigate("/");
   };
 
   if (!selectedBatch) {

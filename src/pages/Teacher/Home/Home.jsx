@@ -79,7 +79,6 @@ const Home = () => {
       }
     }
   }
-
   return (
     <SubjectList
       {...{

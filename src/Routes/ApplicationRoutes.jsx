@@ -10,6 +10,7 @@ import { useApplicationManager } from "../contexts/ApplicationContext";
 import Subjects from "../pages/Admin/Subjects/Subjects";
 import Teachers from "../pages/Admin/Teachers/Teachers";
 import Students from "../pages/Admin/Students/Students";
+import ViewMarks from "../Components/Home/ViewMarks";
 
 const RoutesWrapper = () => {
   const { user } = useUser();
@@ -31,6 +32,7 @@ const RoutesWrapper = () => {
           {user ? (
             <>
               <Route path="/" element={<HomeAdmin />} />
+              <Route path="/view-marksheet" element={<ViewMarks />} />
               <Route path="/subjects" element={<Subjects />} />
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/students" element={<Students />} />
@@ -39,6 +41,7 @@ const RoutesWrapper = () => {
           ) : (
             <>
               <Route path="/auth" element={<Authentication />} />
+              <Route path="/view-marksheet" element={<Authentication />} />
               <Route path="/subjects" element={<Authentication />} />
               <Route path="/teachers" element={<Authentication />} />
               <Route path="/students" element={<Authentication />} />

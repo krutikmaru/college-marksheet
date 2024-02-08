@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 
 const ViewMarks = () => {
     const {state} = useLocation()
-    console.log(state)
+    console.log(state, {...state})
     return <div>
               <div className="flex flex-col space-y-4 pb-20">
                 {state.students.map(student => {

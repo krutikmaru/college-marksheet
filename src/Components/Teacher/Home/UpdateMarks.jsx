@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import toast from "react-hot-toast";
 import { useDataStore } from "../../../contexts/DataStoreContext";
+import ImageOCR from "./ImageOCR";
 
 const UpdateMarks = ({
   batch,
@@ -13,6 +14,7 @@ const UpdateMarks = ({
   examType,
   selectedSubject,
   handleStudentMarkChange,
+  handleOCRMarkChange,
   students,
   goBackToSubjectList,
   course,
@@ -68,6 +70,9 @@ const UpdateMarks = ({
           Send to Publish
         </button>
       </div>
+      <div>
+        <ImageOCR handleOCRMarkChange={handleOCRMarkChange} />
+      </div>
       <div className="flex flex-col space-y-4 pb-20">
         {students[batch][courseName].students.map((student, index) => {
           return (
@@ -76,7 +81,7 @@ const UpdateMarks = ({
               student={student}
               marks={
                 student[selectedSubject.sem][selectedSubject.abbrevation][
-                  examType
+                  examType.toLowerCase()
                 ]
               }
               index={index}
@@ -123,3 +128,6 @@ const StudentMarkSection = ({
     </div>
   );
 };
+
+// afreenshaikh@jaihindcollege.edu.in
+// Afreen182003#

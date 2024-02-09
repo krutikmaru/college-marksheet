@@ -31,6 +31,36 @@ const Home = () => {
     setStudents(copy);
   };
 
+  const handleOCRMarkChange = (OCRData) => {
+    function matchWithPattern(str1, str2) {
+      const pattern1 = str1.replace(/o/g, "0");
+      const pattern2 = str2.replace(/o/g, "0");
+      return pattern1 === pattern2;
+    }
+    const copy = JSON.parse(JSON.stringify(students));
+    for (let i = 0; i < OCRData.uids.length; i++) {
+      copy[selectedBatch][user.course].students = copy[selectedBatch][
+        user.course
+      ].students.map((student) => {
+        console.log(student.uid.toLowerCase(), OCRData.uids[i].toLowerCase());
+        if (
+          student.uid.toLowerCase() === OCRData.uids[i].toLowerCase() ||
+          matchWithPattern(
+            student.uid.toLowerCase(),
+            OCRData.uids[i].toLowerCase()
+          )
+        ) {
+          console.log(OCRData.marks[i]);
+          student[selectedSubject.sem][selectedSubject.abbrevation][
+            examType.toLowerCase()
+          ] = OCRData.marks[i];
+        }
+        return student;
+      });
+    }
+    setStudents(copy);
+  };
+
   if (!selectedBatch) {
     return (
       <div className="w-full mt-5">
@@ -53,6 +83,7 @@ const Home = () => {
         examType={examType}
         selectedSubject={selectedSubject}
         handleStudentMarkChange={handleStudentMarkChange}
+        handleOCRMarkChange={handleOCRMarkChange}
         students={students}
         goBackToSubjectList={goBackToSubjectList}
         course={course}

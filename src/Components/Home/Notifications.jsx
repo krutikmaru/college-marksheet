@@ -1,12 +1,13 @@
 import React from "react";
 import { useDataStore } from "../../contexts/DataStoreContext";
 import { useUser } from "../../contexts/UserContext";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
-  const { course, setCourse, updateCourse } = useDataStore();
+  const { course, setCourse, updateCourse, students } = useDataStore();
   const { user } = useUser();
 
   const handlePublish = (pendingPublish) => {
@@ -51,7 +52,6 @@ const Notifications = () => {
       }
     }
   }
-
   return (
     <div className=" flex w-full min-h-screen flex-col">
       <h1 className="text-2xl mb-2  text-jhc-blue-primary">Notifications 🔔</h1>
@@ -59,12 +59,13 @@ const Notifications = () => {
         <h1 className="mb-2 text-sm text-[#7d7d7d]">No new notifications</h1>
       ) : (
         <div className="flex flex-col space-y-4 mt-4">
-          {pendingPublishes.map((pendingPublish) => {
+          {pendingPublishes.map((pendingPublish, index) => {
             return (
               <PublishNotification
                 key={pendingPublish.title}
                 pendingPublish={pendingPublish}
                 handlePublish={handlePublish}
+                students={students[pendingPublishes[index].batch][pendingPublishes[0].course].students}
               />
             );
           })}
@@ -76,7 +77,7 @@ const Notifications = () => {
 
 export default Notifications;
 
-const PublishNotification = ({ pendingPublish, handlePublish }) => {
+const PublishNotification = ({ pendingPublish, handlePublish, students }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -108,7 +109,15 @@ const PublishNotification = ({ pendingPublish, handlePublish }) => {
           <span className="text-xs text-[#9c9c9c]">{pendingPublish.title}</span>
         </div>
       </div>
-      <div>
+      <div className="flex space-x-4">
+      <Link
+          className="text-sm text-white bg-orange-600 py-2 px-4 rounded-md "
+          to="/view-marksheet"
+          state={{students, pendingPublish}}
+        >
+          <FontAwesomeIcon icon={faEye} className="mr-3" />
+          View
+        </Link>
         <button
           className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
           onClick={() => {

@@ -1,7 +1,10 @@
 import React from "react";
 import { useDataStore } from "../../contexts/DataStoreContext";
 import { useUser } from "../../contexts/UserContext";
-import { faArrowUpRightFromSquare, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -65,7 +68,11 @@ const Notifications = () => {
                 key={pendingPublish.title}
                 pendingPublish={pendingPublish}
                 handlePublish={handlePublish}
-                students={students[pendingPublishes[index].batch][pendingPublishes[0].course].students}
+                students={
+                  students[pendingPublishes[index].batch][
+                    pendingPublishes[0].course
+                  ].students
+                }
               />
             );
           })}
@@ -110,16 +117,16 @@ const PublishNotification = ({ pendingPublish, handlePublish, students }) => {
         </div>
       </div>
       <div className="flex space-x-4">
-      <Link
-          className="text-sm text-white bg-orange-600 py-2 px-4 rounded-md "
+        <Link
+          className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
           to="/view-marksheet"
-          state={{students, pendingPublish}}
+          state={{ students, pendingPublish }}
         >
           <FontAwesomeIcon icon={faEye} className="mr-3" />
           View
         </Link>
         <button
-          className="text-sm text-white bg-jhc-blue-primary py-2 px-4 rounded-md "
+          className="text-sm text-white bg-green-600 py-2 px-4 rounded-md "
           onClick={() => {
             handlePublish(pendingPublish);
           }}

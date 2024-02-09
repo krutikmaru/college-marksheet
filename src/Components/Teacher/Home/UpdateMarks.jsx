@@ -20,7 +20,7 @@ const UpdateMarks = ({
   course,
   setCourse,
 }) => {
-  const { updateCourse } = useDataStore();
+  const { updateCourse, updateStudents } = useDataStore();
 
   const handlePublish = async () => {
     const areMissingMarks = students[batch][courseName].students.filter(
@@ -46,6 +46,7 @@ const UpdateMarks = ({
 
       setCourse(copy);
       await updateCourse(copy);
+      await updateStudents();
       goBackToSubjectList();
     }
   };

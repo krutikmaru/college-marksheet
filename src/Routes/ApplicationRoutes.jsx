@@ -11,6 +11,7 @@ import Subjects from "../pages/Admin/Subjects/Subjects";
 import Teachers from "../pages/Admin/Teachers/Teachers";
 import Students from "../pages/Admin/Students/Students";
 import ViewMarks from "../Components/Home/ViewMarks";
+import Account from "../pages/Account/Account";
 
 const RoutesWrapper = () => {
   const { user } = useUser();
@@ -36,6 +37,7 @@ const RoutesWrapper = () => {
               <Route path="/subjects" element={<Subjects />} />
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/auth" element={<Navigate to="/" replace />} />
             </>
           ) : (
@@ -45,6 +47,7 @@ const RoutesWrapper = () => {
               <Route path="/subjects" element={<Authentication />} />
               <Route path="/teachers" element={<Authentication />} />
               <Route path="/students" element={<Authentication />} />
+              <Route path="/account" element={<Authentication />} />
               <Route path="/" element={<Navigate to="/auth" replace />} />
             </>
           )}

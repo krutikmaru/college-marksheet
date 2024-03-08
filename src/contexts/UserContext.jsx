@@ -1,4 +1,7 @@
-import React, { createContext, useContext, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import app from "../firebase/firebase";
+import { useDataStore } from "./DataStoreContext";
 
 const UserContext = createContext();
 
@@ -11,21 +14,30 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  // const [user, setUser] = useState({
-  //   UID: "BSCIT_AS",
-  //   course: "BSCIT",
-  //   name: "Afreen Shaikh",
-  //   email: "afreenshaikh@jaihindcollege.edu.in",
-  //   isAdmin: false,
-  // });
-  // const [user, setUser] = useState({
-  //   UID: "BSCIT_WR",
-  //   name: "Wilson Rao",
-  //   course: "BSCIT",
-  //   email: "wilsonrao@jaihindcollege.edu.in",
-  //   isAdmin: true,
-  // });
   const [user, setUser] = useState(null);
+  const { teachers } = useDataStore();
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      if (authUser) {
+        let foundTeacher = null;
+
+        for (let course in teachers) {
+          for (let i = 0; i < teachers[course].teachers.length; i++) {
+            if (teachers[course].teachers[i].email === authUser.email) {
+              foundTeacher = teachers[course].teachers[i];
+              break;
+            }
+          }
+        }
+        setUser(foundTeacher);
+      } else {
+        setUser(null);
+      }
+    });
+    return unsubscribe;
+  }, [teachers, user]);
 
   const value = {
     user,

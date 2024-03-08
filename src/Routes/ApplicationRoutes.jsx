@@ -71,12 +71,14 @@ const RoutesWrapper = () => {
         {user ? (
           <>
             <Route path="/" element={<HomeTeacher />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/auth" element={<Navigate to="/" replace />} />
           </>
         ) : (
           <>
             <Route path="/auth" element={<Authentication />} />
             <Route path="/" element={<Navigate to="/auth" replace />} />
+            <Route path="/account" element={<Navigate to="/auth" replace />} />
           </>
         )}
       </Routes>
